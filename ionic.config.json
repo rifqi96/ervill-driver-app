@@ -1,0 +1,15 @@
+{
+  "name": "ervill-driver-app",
+  "app_id": "0413a6f4",
+  "type": "ionic1",
+  "integrations": {
+    "gulp": {},
+    "cordova": {}
+  },
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
+}
