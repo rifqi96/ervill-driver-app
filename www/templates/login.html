@@ -6,20 +6,20 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row login-page">
         <div class="col col-100">
           <form>
             <div class = "list extra-margin">
-               <label class = "item item-input">
+               <label class = "item item-input item-floating-label">
                   <span class="input-label">Username</span>
-                  <input ng-model="username" type = "text" placeholder = "" autofocus/>
+                  <input ng-model="username" type = "text" placeholder = "Username" autofocus/>
                </label>
                <div class="row"></div>
-               <label class = "item item-input">
+               <label class = "item item-input item-floating-label">
                   <span class="input-label">Password</span>
-                  <input ng-model="password" type = "password" placeholder = "" />
+                  <input ng-model="password" type = "password" placeholder = "Password" />
                </label>
-               <button ng-click="doLogin()" ng-disabled="isClicked" class="button button-full button-dark">
+               <button ng-click="doLogin()" ng-disabled="isClicked" class="button button-full button-positive">
                 <span ng-class="button_icon" ng-disable="isClicked" style="float:left;"></span>
                 {{button_text}}
               </button>
@@ -41,5 +41,13 @@
     margin-top: 50px;
     width:70%;
     height:auto;
+  }
+  .login-page input, .login-page input::placeholder, .login-page span
+  {
+    color:white;
+  }
+
+  .login-page label{
+    border:0!important;
   }
 </style>

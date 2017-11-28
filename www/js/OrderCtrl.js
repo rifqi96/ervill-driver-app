@@ -6,6 +6,8 @@ ng_app.controller('OrderCtrl', function($rootScope, $scope, $stateParams){
   $scope.orders = null;
   $scope.order = null;
   $scope.issues = null;
+  $scope.hasOrders = false;
+  $scope.data = {};
 
   $scope.init = function(){
 		if(!$scope.isTokenValid(storage.getItem('user'), storage.getItem('token'))){
@@ -16,12 +18,8 @@ ng_app.controller('OrderCtrl', function($rootScope, $scope, $stateParams){
         $scope.order_id = null;
         $scope.getOrders();
       }
-      else if($scope.mode == "details"){
+      else if($scope.mode == "details" || $scope.mode == "issues"){
         $scope.getOrderDetails();
-        $scope.back = true;
-      }
-      else if($scope.mode == "issues"){
-        $scope.getOrderIssues();
         $scope.back = true;
       }
       else{ //History
@@ -90,12 +88,13 @@ ng_app.controller('OrderCtrl', function($rootScope, $scope, $stateParams){
     var success = function(response){
       var result = response.data;
       if(result.status == 1){
-        console.log(result);
         if(result.data.length > 0){
           $scope.orders = result.data;
+          $scope.hasOrders = true;
         }
         else{
           $scope.message = result.message;
+          $scope.hasOrders = false;
         }
       }
       else{
@@ -109,10 +108,6 @@ ng_app.controller('OrderCtrl', function($rootScope, $scope, $stateParams){
     };
 
     return $scope.ajax_request(data, success, fail);
-  };
-
-  $scope.getOrderIssues = function(){
-
   };
 
   $scope.getOrderDetails = function(){
@@ -207,11 +202,45 @@ ng_app.controller('OrderCtrl', function($rootScope, $scope, $stateParams){
     args.then(function(res){
       if(typeof res !== typeof undefined){
         $scope.showLoading();
-        $rootScope.$broadcast('showAlert', {
-          title:'Berhasil',
-          template:'Berhasil menambahkan masalah'
-        });
-        $scope.init();
+        var data = {
+          user_id:$scope.user.id,
+          token:$scope.token,
+          keyword:'add-issue',
+          order_id:$scope.order_id,
+          description:res.description,
+          quantity:res.qty,
+          type:res.type
+        };
+
+        console.log(data);
+
+        var success = function(response){
+          var result = response.data;
+
+          if(result.status == 1){
+            $rootScope.$broadcast('showAlert', {
+              title:'Berhasil',
+              template:'Berhasil menambahkan masalah'
+            });
+            $scope.init();
+          }
+          else if(result.status == 0){
+            $rootScope.$broadcast('showAlert', {
+              title:'Gagal',
+              template:result.message
+            });
+          }
+          else{ //Invalid Token
+            $scope.signout();
+          }
+        };
+
+        var fail = function(response){
+          alert(JSON.stringify(response));
+          $scope.signout();
+        };
+
+        return $scope.ajax_request(data, success, fail);
       }
     });
   });
@@ -280,7 +309,9 @@ ng_app.controller('OrderCtrl', function($rootScope, $scope, $stateParams){
     });
   };
 
-  $scope.onHold = function(){
+  $scope.issue_id_del = null;
+  $scope.onHold = function(issue_id){
+    $scope.issue_id_del = issue_id;
     $rootScope.$broadcast('showActionSheet');
   };
 
@@ -288,11 +319,37 @@ ng_app.controller('OrderCtrl', function($rootScope, $scope, $stateParams){
     if(args){
       // remove issue
       $scope.showLoading();
-      $rootScope.$broadcast('showAlert', {
-        title:'Berhasil',
-        template:'Berhasil menghapus masalah'
-      });
-      $scope.init();
+
+      var data = {
+        user_id:$scope.user.id,
+        token:$scope.token,
+        keyword:'remove-issue',
+        issue_id:$scope.issue_id_del
+      };
+
+      var success = function(response){
+        var result = response.data;
+
+        if(result.status == 1){
+          $rootScope.$broadcast('showAlert', {
+            title:'Berhasil',
+            template:'Berhasil menghapus masalah'
+          });
+          $scope.issue_id_del = null;
+          $scope.init();
+        }
+        else{
+          $scope.signout();
+        }
+
+      };
+
+      var fail = function(response){
+        alert(JSON.stringify(response));
+        $scope.signout();
+      };
+
+      return $scope.ajax_request(data, success, fail);
     }
   });
 

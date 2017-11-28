@@ -1,53 +1,53 @@
 ng_app.controller('PopupCtrl',function($rootScope, $scope, $ionicPopup, $timeout) {
 
-// Triggered on a button click, or some other target
-$scope.$on('showPopup', function(evt, args){
-  $rootScope.$broadcast('returnPopup', $scope.showPopup(args));
-});
-
-$scope.$on('showConfirm', function(evt, args){
-  $rootScope.$broadcast('returnConfirm', $scope.showConfirm(args.title, args.template));
-});
-
-$scope.$on('showAlert', function(evt,args){
-  $scope.showAlert(args.title, args.template);
-});
-
-$scope.showPopup = function(args) {
-  $scope.data = {};
-
-  // An elaborate, custom popup
-  var myPopup = $ionicPopup.show({
-    template: args.template,
-    title: args.title,
-    subTitle: args.subtitle,
-    scope: $scope,
-    buttons: [
-      { text: 'Batal' },
-      {
-        text: '<b>Simpan</b>',
-        type: 'button-assertive',
-        onTap: function(e) {
-          if (Object.keys($scope.data).length < args.model_total) {
-              e.preventDefault();
-          }
-          else {
-            return $scope.data;
-          }
-        }
-      }
-    ]
+  // Triggered on a button click, or some other target
+  $scope.$on('showPopup', function(evt, args){
+    $rootScope.$broadcast('returnPopup', $scope.showPopup(args));
   });
 
-  return myPopup;
-  // myPopup.then(function(res) {
-  //   console.log('Tapped!', res);
-  // });
+  $scope.$on('showConfirm', function(evt, args){
+    $rootScope.$broadcast('returnConfirm', $scope.showConfirm(args.title, args.template));
+  });
 
-  // $timeout(function() {
-  //    myPopup.close(); //close the popup after 3 seconds for some reason
-  // }, 3000);
- };
+  $scope.$on('showAlert', function(evt,args){
+    $scope.showAlert(args.title, args.template);
+  });
+
+  $scope.showPopup = function(args) {
+    $scope.data = {};
+
+    // An elaborate, custom popup
+    var myPopup = $ionicPopup.show({
+      template: args.template,
+      title: args.title,
+      subTitle: args.subtitle,
+      scope: $scope,
+      buttons: [
+        { text: 'Batal' },
+        {
+          text: '<b>Simpan</b>',
+          type: 'button-assertive',
+          onTap: function(e) {
+            if (Object.keys($scope.data).length < args.model_total) {
+                e.preventDefault();
+            }
+            else {
+              return $scope.data;
+            }
+          }
+        }
+      ]
+    });
+
+    return myPopup;
+    // myPopup.then(function(res) {
+    //   console.log('Tapped!', res);
+    // });
+
+    // $timeout(function() {
+    //    myPopup.close(); //close the popup after 3 seconds for some reason
+    // }, 3000);
+   };
 
  // A confirm dialog
  $scope.showConfirm = function(title, template) {

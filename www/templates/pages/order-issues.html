@@ -9,18 +9,23 @@
       <ion-content class="col col-100 has-header">
         <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
-        <!-- Testing -->
-        <div class="card" ng-click="onHold()">
+        <div ng-show="issues === null || issues.length < 1">
+          <div class="item item-text-wrap" style="text-align:center;">
+            <i>Tidak ada masalah dalam transaksi ini</i>
+          </div>
+        </div>
+
+        <div ng-repeat="issue in issues" class="card" ng-click="onHold('{{issue.id}}')">
           <div class="item item-text-wrap">
             <ul class="list">
                 <li class="item">
-                  <strong>Masalah:</strong> Galon Pecah
+                  <strong>Masalah:</strong> {{issue.description}}
                 </li>
                 <li class="item">
-                    <strong>Jumlah:</strong> 2 Galon
+                    <strong>Jumlah:</strong> {{issue.quantity}} Galon
                 </li>
                 <li class="item">
-                    <strong>Solusi:</strong> Refund Gallon
+                    <strong>Solusi:</strong> {{issue.type}}
                 </li>
                 <!-- <li class="item">
                   <button class="button button-assertive" ng-click="showConfirm('delete-issue')">Hapus</button>

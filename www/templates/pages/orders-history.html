@@ -9,6 +9,12 @@
       <ion-content class="col col-100 has-header">
         <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
+        <div ng-show="orders_history === null || orders_history.length < 1">
+          <div class="item item-text-wrap" style="text-align:center;">
+            <i>Belum ada transaksi yang diselesaikan</i>
+          </div>
+        </div>
+
         <div ng-repeat="order in orders_history" class="card" ng-click="goToState('order.details', { 'mode':'details', 'shipment_id': {{shipment_id}}, 'order_id': {{order.id}} })">
           <div class="item item-text-wrap">
             <div class="item item-divider">
