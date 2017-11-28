@@ -18,6 +18,7 @@
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -31,15 +32,49 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
-  </head>
-  <body ng-app="starter">
+    <script src="js/AppCtrl.js"></script>
+    <script src="js/LoginCtrl.js"></script>
+    <script src="js/ShipmentCtrl.js"></script>
+    <script src="js/OrderCtrl.js"></script>
+    <script src="js/ModalCtrl.js"></script>
+    <script src="js/ModalCtrl.js"></script>
+    <script src="js/PopupCtrl.js"></script>
+    <script src="js/ActionSheetCtrl.js"></script>
+    <style media="screen">
+      body{
+          font-family: 'Raleway', sans-serif;
+      }
 
+      .blue-bg{
+        background-color: rgb(82, 143, 242);
+        width: 100%;
+        height: 100%;
+      }
+      .ion-spin-animation { -webkit-animation: spin 1s infinite linear; -moz-animation: spin 1s infinite linear; -o-animation: spin 1s infinite linear; animation: spin 1s infinite linear; }
+
+      @-moz-keyframes spin { 0% { -moz-transform: rotate(0deg); }
+          100% { -moz-transform: rotate(359deg); } }
+      @-webkit-keyframes spin { 0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(359deg); } }
+      @-o-keyframes spin { 0% { -o-transform: rotate(0deg); }
+          100% { -o-transform: rotate(359deg); } }
+      @-ms-keyframes spin { 0% { -ms-transform: rotate(0deg); }
+          100% { -ms-transform: rotate(359deg); } }
+      @keyframes spin { 0% { transform: rotate(0deg); }
+          100% { transform: rotate(359deg); } }
+      .ion-load-a.ion-spin-animation { -webkit-animation-timing-function: steps(8, start); -moz-animation-timing-function: steps(8, start); animation-timing-function: steps(8, start); }
+    </style>
+  </head>
+  <body ng-app="ervill" ng-controller="AppCtrl" ng-init="init()">
     <ion-pane>
-      <ion-header-bar class="bar-stable">
+      <!-- <ion-header-bar class="bar-stable">
         <h1 class="title">Ionic Blank Starter</h1>
-      </ion-header-bar>
-      <ion-content>
-      </ion-content>
+      </ion-header-bar> -->
+      <ion-nav-view></ion-nav-view>
     </ion-pane>
+
+    <div ng-controller="ModalCtrl"></div>
+    <div ng-controller="ActionSheetCtrl"></div>
+    <div ng-controller="PopupCtrl"></div>
   </body>
 </html>

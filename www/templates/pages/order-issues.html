@@ -1,0 +1,38 @@
+<ion-view view-title="Order Issues" ng-init="init()" cache-view="false">
+  <ion-side-menus>
+  <!-- Left menu -->
+    <div ng-include="'templates/layouts/side-menu.html'"></div>
+
+    <ion-side-menu-content>
+      <div ng-include="'templates/layouts/header.html'"></div>
+
+      <ion-content class="col col-100 has-header">
+        <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+        <!-- Testing -->
+        <div class="card" ng-click="onHold()">
+          <div class="item item-text-wrap">
+            <ul class="list">
+                <li class="item">
+                  <strong>Masalah:</strong> Galon Pecah
+                </li>
+                <li class="item">
+                    <strong>Jumlah:</strong> 2 Galon
+                </li>
+                <li class="item">
+                    <strong>Solusi:</strong> Refund Gallon
+                </li>
+                <!-- <li class="item">
+                  <button class="button button-assertive" ng-click="showConfirm('delete-issue')">Hapus</button>
+                </li> -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+
+      </ion-content>
+    </ion-side-menu-content>
+
+  </ion-side-menus>
+</ion-view>

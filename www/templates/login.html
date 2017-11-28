@@ -1,0 +1,45 @@
+<ion-view view-title="Login" ng-init="init()">
+  <ion-content class="blue-bg">
+      <div class="row">
+        <div class="col col-100">
+          <img src="img/logo_white.png" alt="Ervill Logo" class="logo">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-100">
+          <form>
+            <div class = "list extra-margin">
+               <label class = "item item-input">
+                  <span class="input-label">Username</span>
+                  <input ng-model="username" type = "text" placeholder = "" autofocus/>
+               </label>
+               <div class="row"></div>
+               <label class = "item item-input">
+                  <span class="input-label">Password</span>
+                  <input ng-model="password" type = "password" placeholder = "" />
+               </label>
+               <button ng-click="doLogin()" ng-disabled="isClicked" class="button button-full button-dark">
+                <span ng-class="button_icon" ng-disable="isClicked" style="float:left;"></span>
+                {{button_text}}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </ion-content>
+</ion-view>
+
+<style media="screen">
+  .extra-margin{
+    margin-top:50px;
+  }
+  .logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    width:70%;
+    height:auto;
+  }
+</style>

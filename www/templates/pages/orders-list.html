@@ -1,0 +1,66 @@
+<ion-view view-title="Orders List" ng-init="init()" cache-view="false">
+  <ion-side-menus>
+  <!-- Left menu -->
+    <div ng-include="'templates/layouts/side-menu.html'"></div>
+
+    <ion-side-menu-content>
+      <div ng-include="'templates/layouts/header.html'"></div>
+
+      <ion-content class="col col-100 has-header">
+        <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+        <div ng-hide="orders === null" class="row">
+          <div class="col col-100">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Kolom Pencarian" ng-model="search" class="search">
+              <!-- <i ng-show="search" ng-click="clearSearch()" class="icon ion-close-round placeholder-icon" style="display:block; float:right; margin-right:10px;"></i> -->
+            </label>
+          </div>
+        </div>
+
+        <div ng-show="!filteredOrders.length" class="row no-data">
+          <div class="col col-100">
+            Data tidak ditemukan
+          </div>
+        </div>
+
+        <div ng-show="orders === null || orders.length < 1" class="row">
+          <div class="col col-100">
+            <button ng-click="showConfirm('shipment')" class="button button-full button-balanced">Akhiri Pengiriman</button>
+          </div>
+        </div>
+
+        <div ng-repeat="order in filteredOrders = (orders | filter : search)" class="card" ng-click="goToState('order.details', { 'mode':'details', 'shipment_id': {{shipment_id}}, 'order_id': {{order.id}} })">
+          <div class="item item-text-wrap">
+            <ul class="list">
+                <li class="item">
+                  <strong>Nama:</strong> {{order.customer_name}}
+                </li>
+                <li class="item">
+                    <strong>Alamat:</strong> {{order.customer_address}}
+                </li>
+                <li class="item">
+                    <a href="tel:{{order.customer_phone}}" class="button button-positive">Hubungi: {{order.customer_phone}}</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+
+      </ion-content>
+    </ion-side-menu-content>
+
+  </ion-side-menus>
+</ion-view>
+
+<style media="screen">
+  .search, .search::placeholder{
+    text-align: center;
+    font-size:20px;
+    font-family: 'Raleway';
+  }
+
+  .no-data{
+    text-align: center;
+  }
+</style>

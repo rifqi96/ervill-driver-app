@@ -1,0 +1,11 @@
+<ion-tabs ng-controller="OrderCtrl" class="tabs-icon-top tabs-positive">
+
+  <ion-tab title="Detail Pesanan #{{order_id}}" icon="ion-ios-cart-outline" ng-click="goToState('order.details', {'mode':'details', 'shipment_id': {{shipment_id}}, 'order_id': {{order_id}} })">
+    <ion-nav-view name="order-details"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab title="Masalah Pesanan #{{order_id}}" icon="ion-flag" ng-click="goToState('order.issues', {'mode':'issues', 'shipment_id': {{shipment_id}}, 'order_id': {{order_id}} })">
+    <ion-nav-view name="order-issues"></ion-nav-view>
+  </ion-tab>
+
+</ion-tabs>
