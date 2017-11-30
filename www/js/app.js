@@ -39,12 +39,10 @@ var ng_app = angular.module('ervill', ['ionic', 'ionic-material'])
       // else{
       //   StatusBar.styleDefault();
       // }
-
     }
-
-    // $ionicPlatform.registerBackButtonAction(function () {
-    //   navigator.app.exitApp();
-    // }, 100);
+    $ionicPlatform.registerBackButtonAction(function () {
+      navigator.app.exitApp();
+    }, 100);
   })
 })
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {

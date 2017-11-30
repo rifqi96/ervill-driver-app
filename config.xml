@@ -3,7 +3,7 @@
     <name>Ervill</name>
     <description>Ervill Shipments for Driver Application.</description>
     <author email="rifqi96@yahoo.com" href="http://imrifqi.ga/">Rifqi</author>
-    <content original-src="index.html" src="http://192.168.1.200:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="*" />
     <allow-intent href="http://*/*" />

@@ -62,8 +62,18 @@ ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionic
       }
       return false;
     };
+
+    // $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+    //   if(storage.getItem('token') != null){
+    //     if(toState.name=="login"){
+    //       navigator.app.exitApp();
+    //     }
+    //   }
+    // });
+
     $scope.init = function(){
       ionicMaterialInk.displayEffect();
+
       if(!$scope.isTokenValid(storage.getItem('user'), storage.getItem('token'))){
         $scope.signout();
       }
