@@ -6,14 +6,14 @@
     <ion-side-menu-content>
       <div ng-include="'templates/layouts/header.html'"></div>
 
-      <ion-content class="col col-100 has-header">
+      <ion-content class="has-header">
         <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
         <div ng-hide="orders === null" class="row">
           <div class="col col-100">
             <label class="item item-input">
               <i class="icon ion-search placeholder-icon"></i>
-              <input type="text" placeholder="Kolom Pencarian" ng-model="search" class="search">
+              <input type="search" placeholder="Kolom Pencarian" ng-model="search" class="search">
               <!-- <i ng-show="search" ng-click="clearSearch()" class="icon ion-close-round placeholder-icon" style="display:block; float:right; margin-right:10px;"></i> -->
             </label>
           </div>
@@ -31,7 +31,7 @@
           </div>
         </div>
 
-        <div ng-repeat="order in filteredOrders = (orders | filter : search)" class="card" ng-click="goToState('order.details', { 'mode':'details', 'shipment_id': {{shipment_id}}, 'order_id': {{order.id}} })">
+        <div ng-repeat="order in filteredOrders = (orders | filter : search)" class="card" ng-click="orderDetails(order)">
           <div class="item item-text-wrap">
             <ul class="list">
                 <li class="item">
@@ -40,9 +40,9 @@
                 <li class="item">
                     <strong>Alamat:</strong> {{order.customer_address}}
                 </li>
-                <li class="item">
+                <!-- <li class="item">
                     <a href="tel:{{order.customer_phone}}" class="button button-positive">Hubungi: {{order.customer_phone}}</a>
-                </li>
+                </li> -->
             </ul>
           </div>
         </div>

@@ -6,24 +6,43 @@
     <ion-side-menu-content>
       <div ng-include="'templates/layouts/header.html'"></div>
 
-      <ion-content class="col col-100 has-header">
+      <ion-content class="has-header">
         <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
-        <!-- Testing -->
         <div class="card">
           <div class="item item-text-wrap">
             <ul class="list">
                 <li class="item">
-                  <strong>Nama:</strong> {{order.customer_name}}
+                  <div class="row">
+                    <strong>Nama</strong>
+                  </div>
+                  <div class="row">
+                    {{order.customer_name}}
+                  </div>
                 </li>
                 <li class="item">
-                    <strong>Alamat:</strong> {{order.customer_address}}
+                  <div class="row">
+                    <strong>Alamat:</strong>
+                  </div>
+                  <div class="row">
+                    {{order.customer_address}}
+                  </div>
                 </li>
                 <li class="item">
-                    <strong>Pesanan:</strong> {{order.gallon_qty}} Galon
+                  <div class="row">
+                    <strong>Pesanan:</strong>
+                  </div>
+                  <div class="row">
+                    {{order.gallon_qty}} Galon
+                  </div>
                 </li>
                 <li class="item">
-                    <strong>Dibawa:</strong> {{order.empty_gallon_qty}} Galon
+                  <div class="row">
+                    <strong>Dibawa:</strong>
+                  </div>
+                  <div class="row">
+                    {{order.empty_gallon_qty}} Galon
+                  </div>
                 </li>
                 <li class="item">
                     <a href="tel:{{order.customer_phone}}" class="button button-positive">Hubungi: {{order.customer_phone}}</a>
@@ -40,11 +59,16 @@
             </div>
           </div>
           <div class="row">
-            <div class="col col-50">
-              <button ng-click="showConfirm('issue')" class="button button-full button-royal order-details-btn" name="button">Batal</button>
+            <div class="col">
+              <button ng-click="showPopup()" class="button button-full button-assertive order-details-btn" name="button">Masalah</button>
             </div>
-            <div class="col col-50">
-              <button ng-click="showPopup()" class="button button-full button-assertive order-details-btn" name="button">Ada Masalah</button>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button ng-click="openModal()" class="button button-full button-royal order-details-btn" name="button">Edit</button>
+            </div>
+            <div class="col">
+              <button ng-click="showConfirm('issue')" class="button button-full button-dark order-details-btn" name="button">Batal</button>
             </div>
           </div>
 

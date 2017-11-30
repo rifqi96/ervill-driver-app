@@ -25,8 +25,8 @@ ng_app.controller('PopupCtrl',function($rootScope, $scope, $ionicPopup, $timeout
       buttons: [
         { text: 'Batal' },
         {
-          text: '<b>Simpan</b>',
-          type: 'button-assertive',
+          text: '<b>OK</b>',
+          type: 'button-positive',
           onTap: function(e) {
             if (Object.keys($scope.data).length < args.model_total) {
                 e.preventDefault();
@@ -53,7 +53,8 @@ ng_app.controller('PopupCtrl',function($rootScope, $scope, $ionicPopup, $timeout
  $scope.showConfirm = function(title, template) {
    var confirmPopup = $ionicPopup.confirm({
      title: title,
-     template: template
+     template: template,
+     cancelText: '&times'
    });
 
    return confirmPopup;

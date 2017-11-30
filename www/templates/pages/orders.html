@@ -1,11 +1,11 @@
-<ion-tabs ng-controller="OrderCtrl" class="tabs-icon-top tabs-positive">
+<ion-tabs ng-controller="OrderCtrl" class="tabs-icon-top tabs-positive fade-in-not-out">
 
-  <ion-tab title="List Pesanan #{{shipment_id}}" icon="ion-ios-cart" ng-click="goToState('orders.list', {'mode':'list', 'shipment_id': {{shipment_id}} })">
+  <ion-tab title="List Pesanan #{{shipment.id}}" icon="ion-ios-cart" ng-click="goToState('orders.list', {'mode':'list'})">
     <ion-nav-view name="orders-list"></ion-nav-view>
     <!-- <div ng-include="'templates/pages/orders-list.html'"></div> -->
   </ion-tab>
 
-  <ion-tab title="History Pesanan #{{shipment_id}}" icon="ion-ios-clock-outline" ng-click="goToState('orders.history', {'mode':'history', 'shipment_id': {{shipment_id}} })">
+  <ion-tab title="History Pesanan #{{shipment.id}}" icon="ion-ios-clock-outline" ng-click="goToState('orders.history', {'mode':'history'})">
     <ion-nav-view name="orders-history"></ion-nav-view>
     <!-- <div ng-include="'templates/pages/orders-history.html'"></div> -->
   </ion-tab>

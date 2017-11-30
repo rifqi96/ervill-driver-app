@@ -1,4 +1,4 @@
-ng_app.controller('ShipmentCtrl', function($rootScope, $scope){
+ng_app.controller('ShipmentCtrl', function($rootScope, $scope, $ionicHistory){
 	$scope.shipments = [];
 	$scope.title = "Daftar Pengiriman";
 	$scope.isShipping = false;
@@ -8,8 +8,8 @@ ng_app.controller('ShipmentCtrl', function($rootScope, $scope){
 			$scope.signout();
 		}
 		else{
+			storage.setItem('prev_route', 'today_shipments');
 			$scope.getShipments();
-			$scope.hideLoading();
 		}
 	};
 
@@ -18,7 +18,7 @@ ng_app.controller('ShipmentCtrl', function($rootScope, $scope){
 			if(res){
 				var params = {
 					mode:'list',
-					shipment_id:$scope.shipment_id
+					shipment_id:$scope.shipment.id
 				};
 				$scope.showLoading();
 				$scope.startShipment(params);
@@ -26,16 +26,14 @@ ng_app.controller('ShipmentCtrl', function($rootScope, $scope){
 		});
 	});
 
-	$scope.shipment_id = null;
-
-	$scope.showConfirm = function(shipment_id, shipment_status, isEligible){
-		$scope.shipment_id = shipment_id;
+	$scope.showConfirm = function(shipment){
+		storage.setItem('shipment', JSON.stringify(angular.copy(shipment)));
 		if(!$scope.isShipping){
-				if(shipment_status == 'Draft'){
-					if(isEligible){
+				if(shipment.status == 'Draft'){
+					if(shipment.isEligible){
 						var args = {
 							title:'Lakukan Pengiriman',
-							template: 'Apakah anda ingin melakukan pengiriman untuk ID#' + shipment_id + '?'
+							template: 'Apakah anda ingin melakukan pengiriman untuk ID#' + shipment.id + '?'
 						};
 
 						$rootScope.$broadcast('showConfirm', args);
@@ -49,7 +47,7 @@ ng_app.controller('ShipmentCtrl', function($rootScope, $scope){
 						$rootScope.$broadcast('showAlert', args);
 					}
 				}
-				else if(shipment_status == 'Selesai'){
+				else if(shipment.status == 'Selesai'){
 					var args = {
 						title:'Gagal',
 						template: 'Maaf anda tidak dapat melakukan pengiriman yang sudah selesai'
@@ -59,14 +57,13 @@ ng_app.controller('ShipmentCtrl', function($rootScope, $scope){
 				}
 		}
 		else{
-			if(shipment_status == "Proses"){
+			if(shipment.status == "Proses"){
 				var params = {
-					mode:'list',
-					shipment_id:shipment_id
+					mode:'list'
 				};
 				$scope.goToState('orders.list', params);
 			}
-			else if(shipment_status == 'Draft'){
+			else if(shipment.status == 'Draft'){
 				var args = {
 					title:'Gagal',
 					template: 'Anda sedang melakukan pengiriman yang lain'
@@ -83,7 +80,7 @@ ng_app.controller('ShipmentCtrl', function($rootScope, $scope){
 			keyword:'start-shipment',
 			user_id:$scope.user.id,
 			token:$scope.token,
-			shipment_id:$scope.shipment_id
+			shipment_id:$scope.shipment.id
 		};
 
 		var success = function(response){

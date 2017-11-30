@@ -1,13 +1,10 @@
-<script id="templates/layouts/modal.html" type="text/ng-template">
-  <ion-modal-view>
-    <ion-header-bar>
-      <h1 class="title">{{modal_title}}</h1>
-      <button side="right" ng-show="back" ng-click="hideModal()" class="button button-clear button-light">
-        Tutup
-      </button>
-    </ion-header-bar>
-    <ion-content>
-      {{modal_content}}
-    </ion-content>
-  </ion-modal-view>
-</script>
+<ion-modal-view>
+  <ion-header-bar class="bar bar-header bar-positive">
+    <button side="left" ng-click="closeModal()" class="button button-clear icon ion-ios-arrow-back button-light"></button>
+    <h1 class="title">{{modal_title}}</h1>
+    <button side="right" ng-show="modal_content" ng-click="return()" class="button button-clear icon ion-android-checkbox-outline button-light" type="submit"></button>
+  </ion-header-bar>
+  <ion-content>
+    <div ng-include="modal_content"></div>
+  </ion-content>
+</ion-modal-view>

@@ -1,0 +1,42 @@
+<ion-view view-title="Orders History" ng-init="init()" cache-view="false">
+  <ion-side-menus>
+  <!-- Left menu -->
+    <div ng-include="'templates/layouts/side-menu.html'"></div>
+
+    <ion-side-menu-content>
+      <div ng-include="'templates/layouts/header.html'"></div>
+
+      <ion-content class="has-header">
+        <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+        <div ng-show="orders_history === null || orders_history.length < 1">
+          <div class="item item-text-wrap" style="text-align:center;">
+            <i>Belum ada transaksi yang diselesaikan</i>
+          </div>
+        </div>
+
+        <div ng-repeat="order in orders_history" class="card" ng-click="orderDetails(order)">
+          <div class="item item-text-wrap">
+            <div class="item item-divider">
+              <span ng-show="order.status == 'Bermasalah'" class="assertive">Bermasalah</span>
+              <span ng-show="order.status == 'Selesai'" class="balanced">Selesai</span>
+            </div>
+            <ul class="list">
+                <li class="item">
+                  <strong>Nama:</strong> {{order.customer_name}}
+                </li>
+                <li class="item">
+                    <strong>Alamat:</strong> {{order.customer_address}}
+                </li>
+                <li class="item">
+                    <a href="tel:{{order.customer_phone}}" class="button button-positive">Hubungi: {{order.customer_phone}}</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+
+      </ion-content>
+    </ion-side-menu-content>
+
+  </ion-side-menus>
+</ion-view>

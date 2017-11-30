@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="item item-text-wrap">
+    <form name="editForm">
+      <ul class="list">
+          <li class="item">
+            <div class="row">
+              <div class="col col-30">
+                <strong>Pesanan:</strong>
+              </div>
+              <div class="col">
+                {{data.gallon_qty}} Galon
+              </div>
+            </div>
+            <div class="row">
+              <input type="number" min="0" ng-model="data.edit.qty" placeholder="Ubah jumlah pesanan" style="width:100%;">
+            </div>
+          </li>
+          <li class="item">
+            <div class="row">
+              <div class="col col-30">
+                <strong>Dibawa:</strong>
+              </div>
+              <div class="col">
+                {{data.empty_gallon_qty}} Galon
+              </div>
+            </div>
+            <div class="row">
+              <input type="number" min="0" ng-model="data.edit.empty_qty" placeholder="Ubah jumlah yang dibawa" style="width:100%;">
+            </div>
+          </li>
+          <li class="item">
+            <div class="row">
+              <strong>Alasan:</strong>
+            </div>
+            <div class="row">
+              <input type="text" ng-model="data.edit.description" placeholder="Alasan mengubah jumlah pesanan" style="width:100%;">
+            </div>
+          </li>
+      </ul>
+    </form>
+  </div>
+</div>

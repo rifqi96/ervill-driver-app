@@ -1,10 +1,11 @@
-ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionicSideMenuDelegate, $timeout, $state, $ionicLoading){
+ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionicSideMenuDelegate, $timeout, $state, $ionicLoading, ionicMaterialInk, $ionicHistory, $ionicViewSwitcher){
+    $scope.user = {};
+    $scope.token = "";
+    $scope.back = false;
+
     $scope.showLoading = function() {
       $ionicLoading.show({
-        template: 'Mohon tunggu...',
-        duration: 3000
-      }).then(function(){
-         console.log("The loading indicator is now displayed");
+        template: '<strong class="balanced-900 bold balanced-100-bg"><div class="loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none"  stroke-width="2" stroke-miterlimit="10"/></svg></div></strong>'
       });
     };
 
@@ -62,6 +63,7 @@ ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionic
       return false;
     };
     $scope.init = function(){
+      ionicMaterialInk.displayEffect();
       if(!$scope.isTokenValid(storage.getItem('user'), storage.getItem('token'))){
         $scope.signout();
       }
@@ -79,37 +81,33 @@ ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionic
         var success = function(response){
           if(response.data.status == 1){
             $scope.clearAllAndLogin();
+            $scope.hideLoading();
           }
           else{
             $scope.clearAllAndLogin();
             console.log(response.data.message);
+            $scope.hideLoading();
           }
         };
         var fail = function(response){
           $scope.clearAllAndLogin();
           alert(JSON.stringify(response));
+          $scope.hideLoading();
         };
         return $scope.ajax_request(data, success, fail);
       }
       else{
         $scope.clearAllAndLogin();
+        $scope.hideLoading();
       }
-      $scope.hideLoading();
     };
 
-    $scope.user = {};
-    $scope.token = "";
-
-    $scope.goToState = function(state, params){
+    $scope.goToState = function(state, params, options){
       $scope.showLoading();
       if(state != 'login'){
-        params = params || 0;
-        if(params != 0){
-          $state.transitionTo(state, params, {reload:true, inherit:false, notify:true});
-        }
-        else{
-          $state.transitionTo(state, {}, {reload:true, inherit:false, notify:true});
-        }
+        options = options || {};
+        params = params || {};
+        $state.transitionTo(state, params, options);
       }
       else{
         $scope.signout();

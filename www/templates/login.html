@@ -12,12 +12,16 @@
             <div class = "list extra-margin">
                <label class = "item item-input item-floating-label">
                   <span class="input-label">Username</span>
-                  <input ng-model="username" type = "text" placeholder = "Username" autofocus/>
+                  <div class="input-overlay">
+                    <input ng-model="username" type = "text" placeholder = "Username" autocapitalize="none" autofocus/>
+                  </div>
                </label>
                <div class="row"></div>
                <label class = "item item-input item-floating-label">
                   <span class="input-label">Password</span>
-                  <input ng-model="password" type = "password" placeholder = "Password" />
+                  <div class="input-overlay">
+                    <input ng-model="password" type = "password" placeholder = "Password" />
+                  </div>
                </label>
                <button ng-click="doLogin()" ng-disabled="isClicked" class="button button-full button-positive">
                 <span ng-class="button_icon" ng-disable="isClicked" style="float:left;"></span>
@@ -49,5 +53,14 @@
 
   .login-page label{
     border:0!important;
+  }
+
+  .input-overlay{
+    background-color: rgba(63, 63, 63, 0.1);
+    width:90%;
+    height:40px;
+    padding-left:10px;
+    padding-top:10px;
+    padding-bottom: 10px;
   }
 </style>

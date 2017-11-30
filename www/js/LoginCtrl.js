@@ -1,4 +1,4 @@
-ng_app.controller('LoginCtrl', function($rootScope, $scope, $http){
+ng_app.controller('LoginCtrl', function($rootScope, $scope, $http, $ionicHistory){
   $scope.button_text = "Masuk";
 	$scope.button_icon = "icon-left ion-person";
 	$scope.isClicked = "";
@@ -28,7 +28,10 @@ ng_app.controller('LoginCtrl', function($rootScope, $scope, $http){
       if(result.status == 1){
 				storage.setItem("user", JSON.stringify(result.data.user));
 				storage.setItem("token", result.data.token);
-				$scope.goToState('shipments');
+        $ionicHistory.nextViewOptions( {
+            disableBack : true
+        });
+        $scope.goToState('shipments');
         $scope.hideLoading();
 			}
 			else{
@@ -37,6 +40,7 @@ ng_app.controller('LoginCtrl', function($rootScope, $scope, $http){
           title:'Gagal',
           template:result.message
         });
+        $scope.hideLoading();
 			}
     };
     var fail = function(response){
@@ -45,6 +49,7 @@ ng_app.controller('LoginCtrl', function($rootScope, $scope, $http){
 			$scope.button_icon = "icon-left ion-person";
       alert(JSON.stringify(response));
 			$scope.signout();
+      $scope.hideLoading();
     };
      return $scope.ajax_request(data,success,fail);
   };

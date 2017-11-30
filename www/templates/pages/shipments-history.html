@@ -1,0 +1,72 @@
+<ion-view view-title="Shipments History" ng-init="init()" cache-view="false">
+  <ion-side-menus>
+  <!-- Left menu -->
+    <div ng-include="'templates/layouts/side-menu.html'"></div>
+
+    <ion-side-menu-content>
+      <div ng-include="'templates/layouts/header.html'"></div>
+
+      <ion-content class="has-header">
+        <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+        <div class="row">
+          <div class="col col-30">
+            Tanggal
+          </div>
+          <div class="col col-10">
+            :
+          </div>
+          <div class="col col-60">
+            <div class="date-label">
+              <p class="button button-positive">{{data.date | date: "dd MMMM yyyy"}}</p>
+              <input type="date" ng-model="data.date" placeholder="yyyy-MM-dd" ng-change="init()" class="history-date">
+            </div>
+          </div>
+        </div>
+
+        <div ng-show="shipments === null || shipments.length < 1" class="row">
+          <div class="col col-100">
+            <div class="item item-text-wrap" style="text-align:center; margin-top:30px;">
+              <i>Anda tidak pernah melakukan pengiriman pada {{data.date | date: "dd MMMM yyyy"}}</i>
+            </div>
+          </div>
+        </div>
+
+        <div ng-repeat="shipment in shipments" class="card" ng-click="shipmentDetails(shipment)">
+          <div class="item item-divider">
+            Pengiriman ID#{{shipment.id}}
+          </div>
+          <ul class="list">
+              <li class="item">
+                <strong>Jumlah Pengiriman:</strong> {{shipment.order_qty}}
+              </li>
+              <li class="item">
+                  <strong>Jumlah Galon:</strong> {{shipment.gallon_qty}} Galon
+              </li>
+              <li class="item">
+                  <strong>Status:</strong>
+                  <span style="color:green" ng-show="{{shipment.status=='Selesai'}}">{{shipment.status}}</span>
+                  <span style="color:purple" ng-show="{{shipment.status=='Draft'}}">Siap Antar</span>
+                  <span style="color:orange" ng-show="{{shipment.status=='Proses'}}">{{shipment.status}}</span>
+              </li>
+          </ul>
+        </div>
+      </ion-content>
+    </ion-side-menu-content>
+
+  </ion-side-menus>
+</ion-view>
+
+<style media="screen">
+  .history-alert{
+    position:relative;
+    margin-bottom: 100px;
+  }
+  .date-label p{
+    position:absolute;
+  }
+  .history-date{
+    opacity: 0;
+    width:100%;
+  }
+</style>

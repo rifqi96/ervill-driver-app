@@ -9,9 +9,10 @@
 
 var storage = window.localStorage;
 
-var ng_app = angular.module('ervill', ['ionic'])
+var ng_app = angular.module('ervill', ['ionic', 'ionic-material'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
+
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -24,7 +25,26 @@ var ng_app = angular.module('ervill', ['ionic'])
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
+      StatusBar.styleLightContent();
+      StatusBar.backgroundColorByHexString('#2c65c1');
+      // if (platform.is('android')) {
+      //   StatusBar.styleDefault();
+      //   StatusBar.styleLightContent();
+      //   StatusBar.backgroundColorByHexString('#2c65c1');
+      // }
+      // else if(platform.is('ios')){
+      //   StatusBar.overlaysWebView(true);
+      //   StatusBar.styleLightContent();
+      // }
+      // else{
+      //   StatusBar.styleDefault();
+      // }
+
     }
+
+    // $ionicPlatform.registerBackButtonAction(function () {
+    //   navigator.app.exitApp();
+    // }, 100);
   })
 })
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
@@ -40,6 +60,21 @@ var ng_app = angular.module('ervill', ['ionic'])
                 controller: 'ShipmentCtrl',
                 cache: false
             })
+            .state('shipments_history', {
+                url: '/shipments/history',
+                templateUrl: 'templates/pages/shipments-history.html',
+                controller: 'ShipmentHistoryCtrl',
+                cache: false
+            })
+            .state('all_orders_history', {
+              url: '/shipments/history/orders/:mode',
+              cache: false,
+              templateUrl: 'templates/pages/orders-history.html',
+              params: {
+                mode:'history',
+              },
+              controller:'OrderCtrl'
+            })
            .state('orders', {
              url: "/orders",
              abstract: true,
@@ -47,27 +82,25 @@ var ng_app = angular.module('ervill', ['ionic'])
              templateUrl: "templates/pages/orders.html"
            })
            .state('orders.list', {
-             url: '/:mode/:shipment_id',
+             url: '/:mode',
              cache: false,
              views: {
                'orders-list': {
                  templateUrl: 'templates/pages/orders-list.html',
                  params: {
                    mode:'list',
-                   shipment_id:null
                  }
                }
              }
            })
            .state('orders.history', {
-             url: '/:mode/:shipment_id',
+             url: '/:mode',
              cache: false,
              views: {
                'orders-history': {
                  templateUrl: 'templates/pages/orders-history.html',
                  params: {
                    mode:'history',
-                   shipment_id:null
                  }
                }
              }
@@ -79,29 +112,25 @@ var ng_app = angular.module('ervill', ['ionic'])
              templateUrl: "templates/pages/order.html"
            })
            .state('order.details', {
-             url: '/:mode/:shipment_id/:order_id',
+             url: '/:mode',
              cache: false,
              views: {
                'order-details': {
                  templateUrl: 'templates/pages/order-details.html',
                  params: {
-                   mode:'details',
-                   shipment_id:null,
-                   order_id:null
+                   mode:'details'
                  }
                }
              }
            })
            .state('order.issues', {
-             url: '/:mode/:shipment_id/:order_id',
+             url: '/:mode',
              cache: false,
              views: {
                'order-issues': {
                  templateUrl: 'templates/pages/order-issues.html',
                  params: {
-                   mode:'issues',
-                   shipment_id:null,
-                   order_id:null
+                   mode:'issues'
                  }
                }
              }

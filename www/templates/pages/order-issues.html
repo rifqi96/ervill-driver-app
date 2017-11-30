@@ -6,7 +6,7 @@
     <ion-side-menu-content>
       <div ng-include="'templates/layouts/header.html'"></div>
 
-      <ion-content class="col col-100 has-header">
+      <ion-content class="has-header">
         <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
         <div ng-show="issues === null || issues.length < 1">

@@ -6,7 +6,7 @@
     <ion-side-menu-content>
       <div ng-include="'templates/layouts/header.html'"></div>
 
-      <ion-content class="col col-100 has-header">
+      <ion-content class="has-header">
         <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
         <div ng-show="shipments === null || shipments.length < 1">
@@ -15,26 +15,24 @@
           </div>
         </div>
 
-        <div ng-repeat="shipment in shipments" class="card" ng-click="showConfirm({{shipment.id}}, '{{shipment.status}}', {{shipment.isEligible}})">
+        <div ng-repeat="shipment in shipments" class="card" ng-click="showConfirm({{shipment}})">
           <div class="item item-divider">
             Pengiriman ID#{{shipment.id}}
           </div>
-          <div class="item item-text-wrap">
-            <ul class="list">
-                <li class="item">
-                  <strong>Jumlah Pengiriman:</strong> {{shipment.order_qty}} Galon
-                </li>
-                <li class="item">
-                    <strong>Jumlah Galon:</strong> {{shipment.gallon_qty}} Galon
-                </li>
-                <li class="item">
-                    <strong>Status:</strong>
-                    <span style="color:green" ng-show="{{shipment.status=='Selesai'}}">{{shipment.status}}</span>
-                    <span style="color:purple" ng-show="{{shipment.status=='Draft'}}">Siap Antar</span>
-                    <span style="color:orange" ng-show="{{shipment.status=='Proses'}}">{{shipment.status}}</span>
-                </li>
-            </ul>
-          </div>
+          <ul class="list">
+              <li class="item">
+                <strong>Jumlah Pengiriman:</strong> {{shipment.order_qty}}
+              </li>
+              <li class="item">
+                  <strong>Jumlah Galon:</strong> {{shipment.gallon_qty}} Galon
+              </li>
+              <li class="item">
+                  <strong>Status:</strong>
+                  <span style="color:green" ng-show="{{shipment.status=='Selesai'}}">{{shipment.status}}</span>
+                  <span style="color:purple" ng-show="{{shipment.status=='Draft'}}">Siap Antar</span>
+                  <span style="color:orange" ng-show="{{shipment.status=='Proses'}}">{{shipment.status}}</span>
+              </li>
+          </ul>
         </div>
       </ion-content>
     </ion-side-menu-content>
