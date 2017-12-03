@@ -1,6 +1,6 @@
 ng_app.controller('OrderCtrl', function($rootScope, $scope, $stateParams, $ionicHistory, $ionicViewSwitcher){
   $scope.mode = $stateParams.mode;
-  $scope.shipment = JSON.parse(storage.getItem('shipment'));
+  // $scope.shipment = JSON.parse(storage.getItem('shipment'));
   $scope.orders_history = null;
   $scope.orders = null;
   $scope.order = JSON.parse(storage.getItem('order'));
@@ -247,6 +247,7 @@ ng_app.controller('OrderCtrl', function($rootScope, $scope, $stateParams, $ionic
               title:'Gagal',
               template:result.message
             });
+            $scope.hideLoading();
           }
           else{ //Invalid Token
             $scope.signout();

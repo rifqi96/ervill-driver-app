@@ -2,6 +2,7 @@ ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionic
     $scope.user = {};
     $scope.token = "";
     $scope.back = false;
+    $scope.shipment = {};
 
     $scope.showLoading = function() {
       $ionicLoading.show({

@@ -36,6 +36,7 @@ ng_app.controller('ShipmentCtrl', function($rootScope, $scope, $ionicHistory){
 							template: 'Apakah anda ingin melakukan pengiriman untuk ID#' + shipment.id + '?'
 						};
 
+						$scope.shipment = JSON.parse(storage.getItem('shipment'));
 						$rootScope.$broadcast('showConfirm', args);
 					}
 					else{
