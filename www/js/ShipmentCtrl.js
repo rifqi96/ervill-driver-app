@@ -2,6 +2,7 @@ ng_app.controller('ShipmentCtrl', function($rootScope, $scope, $ionicHistory){
 	$scope.shipments = [];
 	$scope.title = "Daftar Pengiriman";
 	$scope.isShipping = false;
+	$scope.channel = $scope.pusher.subscribe('shipment-channel');
 
 	$scope.init = function(){
 		if(!$scope.isTokenValid(storage.getItem('user'), storage.getItem('token'))){
@@ -10,6 +11,12 @@ ng_app.controller('ShipmentCtrl', function($rootScope, $scope, $ionicHistory){
 		else{
 			storage.setItem('prev_route', 'today_shipments');
 			$scope.getShipments();
+
+			$scope.channel.bind('ShipmentUpdated', function (data) {
+				if($scope.user.id == data.user.id){
+					$scope.doRefresh();
+				}
+			});
 		}
 	};
 

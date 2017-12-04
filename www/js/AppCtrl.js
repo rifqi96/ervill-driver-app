@@ -79,6 +79,11 @@ ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionic
         $scope.signout();
       }
     };
+    $scope.pusher = new Pusher('3baaa682d4ac6a04a39b', {
+      cluster: 'ap1',
+      encrypted: true
+    });
+    $scope.channel = null;
     $scope.signout = function(){
       $scope.showLoading();
       if($scope.isTokenValid(storage.getItem('user'), storage.getItem('token'))){
