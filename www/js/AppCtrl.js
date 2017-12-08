@@ -1,4 +1,4 @@
-ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionicSideMenuDelegate, $timeout, $state, $ionicLoading, ionicMaterialInk, $ionicHistory, $ionicViewSwitcher){
+ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionicSideMenuDelegate, $timeout, $state, $ionicLoading, ionicMaterialInk, $ionicHistory, $ionicViewSwitcher, FcmService){
     $scope.user = {};
     $scope.token = "";
     $scope.back = false;
@@ -64,26 +64,15 @@ ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionic
       return false;
     };
 
-    // $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-    //   if(storage.getItem('token') != null){
-    //     if(toState.name=="login"){
-    //       navigator.app.exitApp();
-    //     }
-    //   }
-    // });
-
     $scope.init = function(){
       ionicMaterialInk.displayEffect();
+      FcmService.init();
 
       if(!$scope.isTokenValid(storage.getItem('user'), storage.getItem('token'))){
         $scope.signout();
       }
     };
-    $scope.pusher = new Pusher('3baaa682d4ac6a04a39b', {
-      cluster: 'ap1',
-      encrypted: true
-    });
-    $scope.channel = null;
+    
     $scope.signout = function(){
       $scope.showLoading();
       if($scope.isTokenValid(storage.getItem('user'), storage.getItem('token'))){
@@ -149,7 +138,8 @@ ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionic
 
     $scope.ajax_request = function(data, success, fail){
       return $http({
-        url:'http://q-dev.ga/ervill/public/api',
+        // url:'http://q-dev.ga/ervill/public/api',
+        url: 'http://localhost:8000/api',
         method:'POST',
         dataType:'json',
         data:data,
@@ -162,9 +152,15 @@ ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionic
     $scope.clearAllAndLogin = function(){
       storage.removeItem("user");
       storage.removeItem("token");
+      storage.removeItem("shipment");
+      storage.removeItem("order");
+      storage.removeItem("fcm_token");
+      storage.removeItem("prev_route");
+      storage.removeItem("details");
+
       window.location.href = "#/login";
       // $scope.goToState('login');
-    }
+    };
 
     $scope.doRefresh = function() {
       console.log('Refreshing!');

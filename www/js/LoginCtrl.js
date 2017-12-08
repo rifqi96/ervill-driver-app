@@ -28,6 +28,7 @@ ng_app.controller('LoginCtrl', function($rootScope, $scope, $http, $ionicHistory
       if(result.status == 1){
 				storage.setItem("user", JSON.stringify(result.data.user));
 				storage.setItem("token", result.data.token);
+				storage.setItem("fcm_token", result.data.fcm_token);
         $ionicHistory.nextViewOptions( {
             disableBack : true
         });

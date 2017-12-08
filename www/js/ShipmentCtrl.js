@@ -1,8 +1,8 @@
-ng_app.controller('ShipmentCtrl', function($rootScope, $scope, $ionicHistory){
+ng_app.controller('ShipmentCtrl', function ($rootScope, $scope, $ionicHistory, FcmService, PusherService){
 	$scope.shipments = [];
 	$scope.title = "Daftar Pengiriman";
 	$scope.isShipping = false;
-	$scope.channel = $scope.pusher.subscribe('shipment-channel');
+	$scope.channel = PusherService.pusher.subscribe('shipment-channel');
 
 	$scope.init = function(){
 		if(!$scope.isTokenValid(storage.getItem('user'), storage.getItem('token'))){
@@ -12,11 +12,103 @@ ng_app.controller('ShipmentCtrl', function($rootScope, $scope, $ionicHistory){
 			storage.setItem('prev_route', 'today_shipments');
 			$scope.getShipments();
 
+			// Pusher real time refresher event //
 			$scope.channel.bind('ShipmentUpdated', function (data) {
 				if($scope.user.id == data.user.id){
 					$scope.doRefresh();
 				}
 			});
+
+			// Firebase Cloud Messaging Token Store //
+			FcmService.messaging.requestPermission()
+				.then(function () {
+					console.log('Notification permission granted.');
+					// TODO(developer): Retrieve an Instance ID token for use with FCM.
+					FcmService.messaging.getToken()
+						.then(function (currentToken) {
+							if (currentToken) {
+								// console.log(currentToken);
+
+								if(storage.getItem('fcm_token') == null || storage.getItem('fcm_token') != currentToken) {
+									var data = {
+										keyword: 'add-fcm-token',
+										user_id: $scope.user.id,
+										token: $scope.token,
+										fcm_token: currentToken
+									};
+
+									var success = function(response) {
+										var result = response.data;
+
+										if(result.status == 1) {
+											storage.setItem('fcm_token', currentToken);
+										}
+										else{
+											$scope.signout();
+										}
+									};
+
+									var fail = function(response) {
+										alert(JSON.stringify(response));
+										$scope.signout();
+									};
+
+									return $scope.ajax_request(data, success, fail);
+								}
+							} else {
+								// Show permission request.
+								console.log('No Instance ID token available. Request permission to generate one.');
+								// Show permission UI.
+							}
+						})
+						.catch(function (err) {
+							console.log('An error occurred while retrieving token. ', err);
+						}
+						);
+
+					// Callback fired if Instance ID token is updated.
+					FcmService.messaging.onTokenRefresh(function () {
+						FcmService.messaging.getToken()
+							.then(function (refreshedToken) {
+								console.log('Token refreshed.');
+								// Indicate that the new Instance ID token has not yet been sent to the
+								// app server.
+								if (storage.getItem('fcm_token') == null || storage.getItem('fcm_token') != refreshedToken) {
+									var data = {
+										keyword: 'add-fcm-token',
+										user_id: $scope.user.id,
+										token: $scope.token,
+										fcm_token: refreshedToken
+									};
+
+									var success = function (response) {
+										var result = response.data;
+
+										if (result.status == 1) {
+											storage.setItem('fcm_token', refreshedToken);
+										}
+										else {
+											$scope.signout();
+										}
+									};
+
+									var fail = function (response) {
+										alert(JSON.stringify(response));
+										$scope.signout();
+									}
+
+									return $scope.ajax_request(data, success, fail);
+								}
+							})
+							.catch(function (err) {
+								console.log('Unable to retrieve refreshed token ', err);
+							});
+					});
+				})
+				.catch(function (err) {
+					console.log('Unable to get permission to notify.', err);
+				}
+			);
 		}
 	};
 
