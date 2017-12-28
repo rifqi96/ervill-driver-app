@@ -11,7 +11,7 @@
   "dependencies": {
     "@ionic/pro": "1.0.16",
     "com.telerik.plugins.nativepagetransitions": "git+https://github.com/Telerik-Verified-Plugins/NativePageTransitions.git",
-    "cordova-android": "^6.3.0",
+    "cordova-android": "6.3.0",
     "cordova-plugin-device": "^1.1.4",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-splashscreen": "^4.1.0",

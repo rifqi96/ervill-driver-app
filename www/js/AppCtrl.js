@@ -138,8 +138,8 @@ ng_app.controller('AppCtrl', function($scope, $http, $rootScope, $window, $ionic
 
     $scope.ajax_request = function(data, success, fail){
       return $http({
-        // url:'http://q-dev.ga/ervill/public/api',
-        url: 'http://localhost:8000/api',
+        // url: 'http://localhost:8000/api',
+        url: 'https://ervill.net/api',
         method:'POST',
         dataType:'json',
         data:data,
