@@ -38,10 +38,18 @@
                 </li>
                 <li class="item">
                   <div class="row">
-                    <strong>Dibawa:</strong>
+                    <strong>Dibawa Ervill:</strong>
                   </div>
                   <div class="row">
-                    {{order.empty_gallon_qty}} Galon
+                    {{order.ervill_empty_gallon_qty}} Galon
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="row">
+                    <strong>Dibawa NON Ervill:</strong>
+                  </div>
+                  <div class="row">
+                    {{order.non_ervill_empty_gallon_qty}} Galon
                   </div>
                 </li>
                 <li class="item">
@@ -58,16 +66,16 @@
               <button ng-click="showConfirm('drop')" class="button button-full button-balanced order-details-btn" name="button">Selesai</button>
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col">
               <button ng-click="showPopup()" class="button button-full button-assertive order-details-btn" name="button">Masalah</button>
             </div>
-          </div>
+          </div> -->
           <div class="row">
-            <div class="col">
+            <!-- <div class="col">
               <button ng-click="openModal()" class="button button-full button-royal order-details-btn" name="button">Edit</button>
-            </div>
-            <div class="col">
+            </div> -->
+            <div class="col col-100">
               <button ng-click="showConfirm('issue')" class="button button-full button-dark order-details-btn" name="button">Batal</button>
             </div>
           </div>
