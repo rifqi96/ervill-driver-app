@@ -18,6 +18,7 @@
         <div ng-repeat="order in orders_history" class="card" ng-click="orderDetails(order)">
           <div class="item item-text-wrap">
             <div class="item item-divider">
+              <span ng-show="order.status == 'Batal'" class="assertive">Batal</span>
               <span ng-show="order.status == 'Bermasalah'" class="assertive">Bermasalah</span>
               <span ng-show="order.status == 'Selesai'" class="balanced">Selesai</span>
             </div>
@@ -27,6 +28,12 @@
                 </li>
                 <li class="item">
                     <strong>Alamat:</strong> {{order.customer_address}}
+                </li>
+                <li class="item">
+                  <strong>No Faktur:</strong> {{order.id}}
+                </li>
+                <li class="item">
+                  <strong>Jenis: {{order.type == "order"?"Penjualan":"RETUR"}}</strong>
                 </li>
                 <li class="item">
                     <a href="tel:{{order.customer_phone}}" class="button button-positive">Hubungi: {{order.customer_phone}}</a>

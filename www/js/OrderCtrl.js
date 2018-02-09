@@ -123,6 +123,7 @@ ng_app.controller('OrderCtrl', function($rootScope, $scope, $stateParams, $ionic
       var result = response.data;
 
       if(result.status == 1){
+        result.data.order.total = numeral(result.data.order.total).format('$0,0');
         $scope.order = result.data.order;
         $scope.issues = result.data.issues;
         $scope.message = result.message;

@@ -14,6 +14,14 @@
             <ul class="list">
                 <li class="item">
                   <div class="row">
+                    <strong>No Faktur</strong>
+                  </div>
+                  <div class="row">
+                    {{order.id}}
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="row">
                     <strong>Nama</strong>
                   </div>
                   <div class="row">
@@ -28,30 +36,66 @@
                     {{order.customer_address}}
                   </div>
                 </li>
-                <li class="item">
-                  <div class="row">
-                    <strong>Pesanan:</strong>
-                  </div>
-                  <div class="row">
-                    {{order.gallon_qty}} Galon
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="row">
-                    <strong>Dibawa Ervill:</strong>
-                  </div>
-                  <div class="row">
-                    {{order.ervill_empty_gallon_qty}} Galon
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="row">
-                    <strong>Dibawa NON Ervill:</strong>
-                  </div>
-                  <div class="row">
-                    {{order.non_ervill_empty_gallon_qty}} Galon
-                  </div>
-                </li>
+                <div ng-show="order.type == 'order'">
+                  <li class="item">
+                    <div class="row">
+                      <strong>Pesanan:</strong>
+                    </div>
+                    <div class="row">
+                      {{order.gallon_qty}} Galon
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div class="row">
+                      <strong>Dibawa kosong Ervill:</strong>
+                    </div>
+                    <div class="row">
+                      {{order.ervill_empty_gallon_qty}} Galon
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div class="row">
+                      <strong>Dibawa kosong NON Ervill:</strong>
+                    </div>
+                    <div class="row">
+                      {{order.non_ervill_empty_gallon_qty}} Galon
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div class="row">
+                      <strong>Total:</strong>
+                    </div>
+                    <div class="row numeral">
+                      {{order.total}}
+                    </div>
+                  </li>
+                </div>
+                <div ng-show="order.type == 'return'">
+                  <li class="item">
+                    <div class="row">
+                      <strong>Dibawa ISI:</strong>
+                    </div>
+                    <div class="row">
+                      {{order.ervill_empty_gallon_qty}} Galon
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div class="row">
+                      <strong>Dibawa KOSONG:</strong>
+                    </div>
+                    <div class="row">
+                      {{order.ervill_empty_gallon_qty}} Galon
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div class="row">
+                      <strong>Total:</strong>
+                    </div>
+                    <div class="row numeral">
+                      {{order.total}}
+                    </div>
+                  </li>
+                </div>
                 <li class="item">
                     <a href="tel:{{order.customer_phone}}" class="button button-positive">Hubungi: {{order.customer_phone}}</a>
                 </li>

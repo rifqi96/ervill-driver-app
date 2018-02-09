@@ -21,6 +21,9 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=RobotoDraft:400,500,700,400italic' rel='stylesheet' type='text/css'>
+    <style>
+    
+    </style>
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -40,6 +43,31 @@
     <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase-messaging.js"></script>
     <script src="firebase-messaging-sw.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script>
+    // load a locale
+    numeral.register('locale', 'id', {
+      delimiters: {
+        thousands: '.',
+        decimal: ','
+      },
+      abbreviations: {
+        thousand: 'k',
+        million: 'juta',
+        billion: 'milyar',
+        trillion: 'triliun'
+      },
+      ordinal: function (number) {
+        return number === 1 ? 'er' : 'ème';
+      },
+      currency: {
+        symbol: 'Rp'
+      }
+    });
+
+    // switch between locales
+    numeral.locale('id');
+    </script>
 
     <script src="js/app.js"></script>
     <script src="js/FcmService.js"></script>
